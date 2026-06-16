@@ -30,7 +30,7 @@ class _HomeViewState extends State<HomeView> {
         body: const HomeViewBody(),
         bottomNavigationBar: AppBottomNavBar(
           currentIndex: _currentNavIndex,
-          onTap: (index) => setState(() => _currentNavIndex = index),
+          
         ),
       ),
     );

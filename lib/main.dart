@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:jawali/core/providers/cart_provider.dart';
 import 'package:jawali/core/utils/app_router.dart';
 import 'package:jawali/features/auth/presentation/views/login_view.dart';
 import 'package:jawali/features/auth/presentation/views/signup_view.dart';
 import 'package:jawali/features/home/presentation/views/home_view.dart';
+import 'package:jawali/features/shop/presentation/views/cart_view.dart';
+import 'package:jawali/features/shop/presentation/views/widgets/product_details_body.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(create: (_) => CartProvider(), child: const MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -15,27 +21,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
       onGenerateRoute: onGenerateRoute,
-      home: const SignupView(),
+      home: const CartView(),
       debugShowCheckedModeBanner: false,
     );
   }
