@@ -1,17 +1,4 @@
-// ════════════════════════════════════════════════════════════════
-//  signup_screen.dart
-//  View layer — MVVM.
-//
-//  Responsibilities:
-//    ✓ Render UI from ViewModel state
-//    ✓ Forward user events to ViewModel intents
-//    ✗ No business logic
-//    ✗ No validators (delegated to ViewModel)
-//    ✗ No direct state mutation
-//
-//  To use: wrap with ChangeNotifierProvider<SignupViewModel>
-//  in your router or parent widget.
-// ════════════════════════════════════════════════════════════════
+
 
 import 'package:flutter/material.dart';
 import 'package:jawali/core/utils/constant.dart';
@@ -25,11 +12,9 @@ import 'package:jawali/features/auth/presentation/views/widgets/signup_header.da
 import 'package:jawali/features/auth/presentation/views/widgets/signup_logo.dart';
 import 'package:jawali/features/auth/presentation/views/widgets/submit_button.dart';
 import 'package:jawali/features/auth/presentation/views/widgets/terms_row.dart';
-import 'package:jawali/features/home/presentation/views/home_view.dart';
 import 'package:provider/provider.dart';
 
 class SignupScreen extends StatefulWidget {
-  // Navigation callbacks — injected by router, not hard-coded.
   final VoidCallback onLoginTap;
   final VoidCallback onTermsTap;
   final VoidCallback onPrivacyTap;
@@ -78,7 +63,6 @@ class _SignupScreenState extends State<SignupScreen> {
       create: (_) => SignupViewModel(),
       child: Consumer<SignupViewModel>(
         builder: (context, vm, _) {
-          // React to success / failure
           WidgetsBinding.instance.addPostFrameCallback((_) {
             _handleStatusChange(vm);
           });

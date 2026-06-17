@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:jawali/core/utils/constant.dart';
+import 'package:jawali/features/home/presentation/views/widgets/profile_body.dart';
 
-class ProfileView extends StatefulWidget {
-  static const String name = 'profileView';
+
+ 
+class ProfileView extends StatelessWidget {
+  static const String name = '/profile';
+ 
   const ProfileView({super.key});
-
-  @override
-  State<ProfileView> createState() => _ProfileViewState();
-}
-
-class _ProfileViewState extends State<ProfileView> {
+ 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Scaffold(
+      backgroundColor: AppColors.white,
+      body: ProfileBody(),
+    );
   }
 }
