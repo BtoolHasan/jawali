@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jawali/core/service/get_it.dart';
+import 'package:jawali/features/auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:jawali/features/auth/presentation/views/login_view.dart';
 import 'package:jawali/features/auth/presentation/views/signup_view.dart';
+import 'package:jawali/features/home/data/models/home_model.dart';
 import 'package:jawali/features/home/presentation/views/home_view.dart';
 import 'package:jawali/features/home/presentation/views/profile_view.dart';
 import 'package:jawali/features/home/presentation/views/search_view.dart';
@@ -12,7 +16,13 @@ import 'package:jawali/features/shop/presentation/views/product_details.dart';
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
     case LoginView.name:
-      return MaterialPageRoute(builder: (context) => const LoginView());
+      return MaterialPageRoute(
+        builder:
+            (context) => BlocProvider(
+              create: (_) => getIt<LoginCubit>(),
+              child: const LoginView(),
+            ),
+      );
     case SignupView.name:
       return MaterialPageRoute(builder: (context) => const SignupView());
     case HomeView.name:
@@ -24,7 +34,11 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
     case ProfileView.name:
       return MaterialPageRoute(builder: (_) => const ProfileView());
     case ProductDetailsView.name:
-      return MaterialPageRoute(builder: (_) => const ProductDetailsView());
+  final phone = settings.arguments as PhoneModel;
+
+  return MaterialPageRoute(
+    builder: (_) => ProductDetailsView(phone: phone),
+  );
     case OrderConfirmedView.name:
       // البيانات تأتي من CartView عبر arguments
       final args = settings.arguments as Map<String, dynamic>;

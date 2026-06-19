@@ -10,6 +10,7 @@ class AppTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final Widget? suffixIcon;
   final String? Function(String?)? validator;
+  final String? errorText;
 
   const AppTextField({
     super.key,
@@ -19,7 +20,7 @@ class AppTextField extends StatelessWidget {
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
     this.suffixIcon,
-    this.validator,
+    this.validator, this.errorText,
   });
 
   static OutlineInputBorder _border(Color color, {double width = 1.0}) =>
@@ -37,6 +38,7 @@ class AppTextField extends StatelessWidget {
       validator: validator,
       style: AppTextStyles.inputText,
       decoration: InputDecoration(
+        errorText: errorText,
         hintText: hint,
         hintStyle: AppTextStyles.hintText,
         prefixIcon: Icon(prefixIcon, color: AppColors.textMuted, size: 20),

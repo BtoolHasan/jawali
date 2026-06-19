@@ -122,6 +122,7 @@ class SocialLoginButtons extends StatelessWidget {
             const SizedBox(height: 16),
 
             // ─── Google + Apple ──────────────────────────────────
+            /*
             Row(
               children: [
                 _SocialButton(
@@ -139,6 +140,7 @@ class SocialLoginButtons extends StatelessWidget {
                 ),
               ],
             ),
+            */
           ],
         );
       },

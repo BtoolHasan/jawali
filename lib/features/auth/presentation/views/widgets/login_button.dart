@@ -3,23 +3,17 @@
 import 'package:flutter/material.dart';
 import 'package:jawali/core/utils/constant.dart';
 
-class SubmitButton extends StatefulWidget {
-  final String text;
+class LoginButton extends StatefulWidget {
   final VoidCallback onTap;
-  final bool isLoading;
-  const SubmitButton({
-    super.key,
-    required this.text,
+  final String text;
 
-    required this.onTap,
-    required this.isLoading,
-  });
+  const LoginButton({super.key, required this.text, required this.onTap});
 
   @override
-  State<SubmitButton> createState() => _SubmitButtonState();
+  State<LoginButton> createState() => _LoginButtonState();
 }
 
-class _SubmitButtonState extends State<SubmitButton>
+class _LoginButtonState extends State<LoginButton>
     with SingleTickerProviderStateMixin {
   late final AnimationController _flashCtrl;
   late final Animation<double> _opacity;

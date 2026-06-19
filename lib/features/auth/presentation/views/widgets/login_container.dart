@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jawali/core/utils/constant.dart';
 import 'package:jawali/features/auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:jawali/features/auth/presentation/views/widgets/app_text_field.dart';
-import 'package:jawali/features/auth/presentation/views/widgets/passwort_field.dart';
-import 'package:jawali/features/auth/presentation/views/widgets/terms_row.dart';
 
 class LoginContainer extends StatelessWidget {
+  
   const LoginContainer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    String? emailError;
+String? passwordError;
+
     return BlocBuilder<LoginCubit, LoginState>(
+      
       builder: (context, state) {
+        if (state is LoginValidationError) {
+  emailError = state.emailError;
+  passwordError = state.passwordError;
+}
         final cubit = context.read<LoginCubit>();
 
         return Container(
@@ -31,27 +37,31 @@ class LoginContainer extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const AppTextField(
-                hint: "Emain or Phone Number",
-                prefixIcon: Icons.mail_outline_rounded,
-              ),
+              AppTextField(
+  controller: cubit.emailController,
+  hint: "Email or Phone Number",
+  prefixIcon: Icons.mail_outline_rounded,
+  errorText: emailError,
+),
 
               const SizedBox(height: 16),
 
               // ─── Password Field ────────────────────────────────────
-              PasswordField(
-                controller: cubit.passwordController,
-                obscure: state.obscurePassword!,
-                onToggle: cubit.togglePasswordVisibility,
-                validator: (_) => state.passwordError,
-              ),
-
+AppTextField(
+  controller: cubit.passwordController,
+  hint: "Password",
+  prefixIcon: Icons.lock_outline_rounded,
+  obscureText: true,
+  errorText: passwordError,
+),
               const SizedBox(height: 16),
 
               // ─── Remember Me + Forgot Password ────────────────────
+              
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  /*
                   Row(
                     children: [
                       SizedBox(
@@ -76,9 +86,10 @@ class LoginContainer extends StatelessWidget {
                       Text('Remember Me', style: AppTextStyles.bodySmall),
                     ],
                   ),
+                  */
 
                   GestureDetector(
-                    onTap: cubit.onForgotPassword,
+                    onTap: (){},
                     child: Text(
                       'Forgot Password?',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(

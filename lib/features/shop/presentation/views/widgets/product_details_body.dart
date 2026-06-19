@@ -33,6 +33,7 @@ class ProductDetailsBody extends StatelessWidget {
                         'efficiency with a stunning display and advanced camera '
                         'system. The aerospace-grade frame ensures durability '
                         'while maintaining a lightweight feel.',
+                        
                   ),
                   const SizedBox(height: 8),
                   const RatingSec(),
@@ -42,7 +43,7 @@ class ProductDetailsBody extends StatelessWidget {
             ),
           ),
  
-          // زر Add to Cart → يضيف للـ provider ويبقى في نفس الصفحة
+        
           AddToCartButton(
             onTap: () {
               context.read<CartProvider>().add(phone);

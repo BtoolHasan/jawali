@@ -41,8 +41,7 @@ class _PhotoSecState extends State<PhotoSec> {
                           color: AppColors.cyan,
                         ),
                       )
-                    : Image.network(
-                        widget.imageUrls[i],
+                    : Image.asset(widget.imageUrls[i],
                         fit: BoxFit.contain,
                       ),
               ),

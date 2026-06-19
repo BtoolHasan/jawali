@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:jawali/core/providers/cart_provider.dart';
+import 'package:jawali/core/service/get_it.dart';
 import 'package:jawali/core/utils/app_router.dart';
-import 'package:jawali/features/auth/presentation/views/login_view.dart';
+
 import 'package:jawali/features/auth/presentation/views/signup_view.dart';
-import 'package:jawali/features/home/presentation/views/home_view.dart';
-import 'package:jawali/features/shop/presentation/views/cart_view.dart';
-import 'package:jawali/features/shop/presentation/views/widgets/product_details_body.dart';
+
 import 'package:provider/provider.dart';
 
 void main() {
+  setupGetIt();
+
   runApp(
     ChangeNotifierProvider(create: (_) => CartProvider(), child: const MyApp()),
   );

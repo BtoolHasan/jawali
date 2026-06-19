@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -146,4 +147,83 @@ class LoginCubit extends Cubit<LoginState> {
     passwordController.dispose();
     return super.close();
   }
+}
+*/
+
+
+
+import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jawali/features/auth/data/models/login_model.dart';
+import 'package:jawali/features/auth/data/models/login_response.dart';
+import 'package:jawali/features/auth/data/repo/auth_repo.dart';
+import 'package:flutter/material.dart';
+
+part 'login_state.dart'; 
+
+class LoginCubit extends Cubit<LoginState> {
+  final emailController = TextEditingController();
+
+final passwordController = TextEditingController();
+  LoginCubit(this.authRepo) : super(LoginInitial());
+  final AuthRepo authRepo;
+
+
+  bool validateFields() {
+  String? emailError;
+  String? passwordError;
+
+  if (emailController.text.trim().isEmpty) {
+    emailError = "Email is required";
+  }
+
+  if (passwordController.text.trim().isEmpty) {
+    passwordError = "Password is required";
+  }
+
+  if (emailError != null || passwordError != null) {
+    emit(
+      LoginValidationError(
+        emailError: emailError,
+        passwordError: passwordError,
+      ),
+    );
+
+    return false;
+  }
+
+  return true;
+}
+
+  Future<void> loginRequest() async {
+  if (!validateFields()) {
+    return;
+  }
+
+  emit(LoginLoading());
+
+  final result = await authRepo.loginRequest(
+    loginModel: LoginModel(
+      email: emailController.text.trim(),
+      passowrd: passwordController.text,
+    ),
+  );
+
+  result.fold(
+    (failuer) {
+      emit(LoginFailuer(failuer.errorMessage));
+    },
+    (response) {
+      emit(LoginSuccess(response));
+    },
+  );
+}
+
+@override
+Future<void> close() {
+  emailController.dispose();
+  passwordController.dispose();
+  return super.close();
+}
+
 }

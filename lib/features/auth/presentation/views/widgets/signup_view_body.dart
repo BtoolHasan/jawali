@@ -1,6 +1,5 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:jawali/core/utils/constant.dart';
 import 'package:jawali/features/auth/presentation/manager/signup_cubit/signup_viewmodel.dart';
 import 'package:jawali/features/auth/presentation/views/widgets/app_text_field.dart';
@@ -12,18 +11,29 @@ import 'package:jawali/features/auth/presentation/views/widgets/signup_header.da
 import 'package:jawali/features/auth/presentation/views/widgets/signup_logo.dart';
 import 'package:jawali/features/auth/presentation/views/widgets/submit_button.dart';
 import 'package:jawali/features/auth/presentation/views/widgets/terms_row.dart';
+import 'package:jawali/features/home/presentation/views/home_view.dart';
 import 'package:provider/provider.dart';
 
 class SignupScreen extends StatefulWidget {
   final VoidCallback onLoginTap;
   final VoidCallback onTermsTap;
   final VoidCallback onPrivacyTap;
+  final bool isLoading;
+  final void Function({
+    required String name,
+    required String email,
+    required String password,
+    required String confirmPassword,
+  })
+  onSignup;
 
   const SignupScreen({
     super.key,
     required this.onLoginTap,
     required this.onTermsTap,
     required this.onPrivacyTap,
+    this.isLoading = false,
+    required this.onSignup,
   });
 
   @override
@@ -51,10 +61,18 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   // ── Submit ────────────────────────────────────────────────────
-  void _onSubmit(SignupViewModel vm) {
-    final isValid = _formKey.currentState?.validate() ?? false;
-    vm.onSubmit(formIsValid: isValid);
-  }
+  void _onSubmit() {
+   
+  final isValid = _formKey.currentState?.validate() ?? false;
+  if (!isValid) return;
+   Navigator.pushReplacementNamed(context, HomeView.name);
+  widget.onSignup(
+    name: _fullNameCtrl.text.trim(),
+    email: _emailCtrl.text.trim(),
+    password: _passwordCtrl.text,
+    confirmPassword: _confirmCtrl.text,
+  );
+}
 
   // ── Build ────────────────────────────────────────────────────
   @override
@@ -168,11 +186,12 @@ class _SignupScreenState extends State<SignupScreen> {
                       const SizedBox(height: AppSpacing.xl),
 
                       // ── Submit ───────────────────────────────
-                      SubmitButton(
-                        isLoading: vm.isLoading,
-                        onTap: () => _onSubmit(vm),
-                        text: "Create Account",
-                      ),
+                     SubmitButton(
+  isLoading: widget.isLoading, 
+  onTap: _onSubmit, 
+  text: "Create Account",
+),
+
                       const SizedBox(height: AppSpacing.lg),
 
                       // ── Login Link ───────────────────────────
